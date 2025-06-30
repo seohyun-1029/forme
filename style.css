@@ -180,7 +180,7 @@ canvas {
   margin-right: auto; /* ✅ 가운데 정렬 */
 }
 #question{
-  font-size: 25px; 
+  font-size: 19px; 
   margin-bottom: 15px;
 }
 #result-img,#reward-imgpz{
