@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <title>박슬겸 일병 축하해</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="ladder">
+    <div class="container">
+        <h1>🎁용돈 random 뽑기🎁</h1>
+        <div class="face">
+            <img src="images/face1.png" class="face-btn" data-index="0" alt="face1" />
+            <img src="images/face2.png" class="face-btn" data-index="1" alt="face2" />
+            <img src="images/face3.png" class="face-btn" data-index="2" alt="face3" />
+            <img src="images/face4.png" class="face-btn" data-index="3" alt="face4" />
+             <img src="images/face5.png" class="face-btn" data-index="4" alt="face5" />
+        </div>
+        <canvas id="ladderCanvas" width="400" height="500"></canvas>
+        <img id="movingFace" src="" style="position:absolute; display:none; width: 60px; height: 60px;" /> 
+        <button id="checkResultBtn" class="hidden">결과 확인</button> 
+    </div>
+    <div id="overlay" class="hidden"></div>
+    <div id="result" class="hidden">
+        <img id="reward-img" alt="Reward Image" />
+        <p id="reward-text" >화면 보여주면 송금해드려요~</p>
+        <button id="closeResultBtn">닫기</button>
+    </div>
+    <button id="nextBtn" class="hidden">NEXT</button>
+
+  <script src="ladderscript.js"></script>
+</body>
+</html>

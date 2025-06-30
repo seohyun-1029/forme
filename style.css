@@ -1,0 +1,232 @@
+body{
+    background-color: #679467;
+    font-family:"Do Hyeon", sans-serif;
+    text-align: center;
+    padding: 50px;
+}
+.container{
+    max-width: 500px;
+    width: 90%;
+    margin:auto; /* 컨테이너 자체를 화면 중앙에 */
+    position: relative; 
+    min-height: 700px; /* 캔버스 높이 500px + 버튼 공간 + 여백 */
+    display: flex; /* 내부 요소를 flex로 정렬 */
+    flex-direction: column; /* 세로 방향으로 쌓기 */
+    align-items: center; /* 가로축 중앙 정렬 (캔버스, 버튼 등) */
+    justify-content: flex-start; /* 세로축은 위에서부터 시작 */
+}
+.badge{
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.hidden {
+  display: none;
+}
+.clickable{
+    cursor:pointer;
+}
+.puzzle-container {
+  display: grid;
+  grid-template-columns: repeat(4, 90px);
+  grid-template-rows: repeat(4, 90px);
+  gap: 4px;
+  justify-content: center;
+  margin: 20px auto;
+  width: max-content;
+}
+.puzzle-piece {
+  width: 90px;
+  height: 90px;
+  border: 1px solid #ccc;
+  cursor: grab;
+  user-select: none;
+  background-size: cover;
+  background-position: center;
+}
+
+
+#nextQuestBtn , #checkResultBtn , #nextBtn{
+  margin-top: 15px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: "Do Hyeon",sans-serif;
+  border-radius: 5px;
+  color:#3CA03C;
+}
+.full-img {
+  width: 500px;
+  max-width: 90%;
+  margin: 20px auto;
+  display: block;
+  cursor: pointer;
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+#completed-image.show .full-img {
+  transform: scale(1);
+  opacity: 1;
+}
+.faces {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.face-btn {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border 0.3s;
+}
+
+.face-btn:hover {
+  transform: scale(1.1);
+  border: 2px solid;
+}
+
+canvas {
+  border: 2px solid #333;
+  background-color: #80AD80;
+  margin-bottom: 20px;
+  display: block; /* 인라인 요소의 기본 여백 제거 */
+}
+/* movingFace에 기본 크기와 중앙 정렬을 위한 transform을 추가할게 */
+#movingFace {
+    position: absolute;
+    width: 60px; /* 얼굴 이미지 크기 */
+    height: 60px; /* 얼굴 이미지 크기 */
+    display: none;
+    pointer-events: none;
+    /* 이미지의 중앙이 사다리 선에 오도록 조정 */
+    transform: translate(-50%, -50%); 
+    z-index: 10; 
+}
+
+/* 결과창 배경을 어둡게 만들어서 결과에 집중! */
+#overlay {
+  position: fixed; /* 화면에 고정! */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* 반투명 검정색 */
+  display: flex; /* 내용을 가운데 정렬하려고! */
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* 다른 것들 위에 뿅! 나타나게 */
+  opacity: 0; /* 처음엔 투명하게 */
+  transition: opacity 0.3s ease-in-out; /* 부드럽게 나타나게 */
+  pointer-events: none; /* 클릭 이벤트 막기 (숨겨져 있을 때) */
+}
+
+#overlay.visible {
+  opacity: 1; /* 보이게 할 때는 불투명하게 */
+  pointer-events: auto; /* 클릭 이벤트 허용 */
+}
+
+#result {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1); /* scale을 1로! */
+  background-color: #fff;
+  padding: 40px; /* 패딩 넉넉히 */
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width:500px;
+  max-width: 90%; /* 최대 너비 더 키워 */
+  max-height: 90vh; /* 높이도 제한만 살짝 */
+  overflow: auto; /* 혹시 넘치면 스크롤 */
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+/* 결과 이미지를 시원하게! */
+#reward-img {
+  max-width: 100%; /* 부모 요소에 꽉 차게 */
+  width:400px;
+  height: auto; /* 비율 유지 */
+  border-radius: 10px; /* 이미지도 살짝 둥글게 */
+}
+#reward-text{
+  font-size: 1.4em;
+  margin: 15px 0;
+  font-family: "Do Hyeon", sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+/* 닫기 버튼 스타일 */
+#closeResultBtn {
+  background-color: #63CC63;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-family: "Do Hyeon",sans-serif;
+  transition: background-color 0.2s;
+  margin-top: 20px; /* ✅ 이미지와 버튼 사이 여백 */
+  display: block; /* ✅ 수평 정렬을 피해서 세로 배치 확실히 */
+  margin-left: auto;
+  margin-right: auto; /* ✅ 가운데 정렬 */
+}
+#question{
+  font-size: 25px; 
+  margin-bottom: 15px;
+}
+#result-img,#reward-imgpz{
+  width: 500px;
+  max-width: 90%;
+}
+#oxresult{
+  font-size: 25px;
+}
+
+#clickBtn {
+  width: 250px;
+  max-width: 80%;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#startBtn {
+  font-size: 1.2em;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #63CC63;
+  color: white;
+  border: none;
+  font-family: "Do Hyeon",sans-serif;
+}
+#letter{
+  font-family: "Do Hyeon",sans-serif;
+  width : 380px;
+  max-width: 80%;
+  background-color: #EBFFEB;
+  margin: 30px auto;
+  line-height: 1.6;
+}
+.letter-box {
+  background-color: #E6FFE6; 
+  padding: 30px 25px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  font-family: "Do Hyeon", sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #333;
+  max-height: 400px;
+  overflow-y: auto;
+  position: relative;
+}
