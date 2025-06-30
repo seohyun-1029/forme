@@ -32,7 +32,7 @@ body{
   grid-template-rows: repeat(4, 90px);
   gap: 4px;
   justify-content: center;
-  margin: 20px auto;
+  margin:auto;
   width: max-content;
 }
 .puzzle-piece {
