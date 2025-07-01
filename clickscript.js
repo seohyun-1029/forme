@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ✅ 클릭하면 편지 보여주기
   resultText.addEventListener("click", () => {
-    if (count >= 15) {
+    if (count >= 5) {
       // 기존 요소 숨기기
       title.style.display = "none";
       description.style.display = "none";
