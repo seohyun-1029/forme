@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clickBtn.classList.add("hidden");
         resultBox.classList.remove("hidden");
 
-        if (count >= 20) {
+        if (count >= 5) {
           resultText.textContent = `성공! (${count}번 클릭) 🎉 클릭해서 편지 보기`;
           resultText.style.cursor = "pointer";
         } else {
